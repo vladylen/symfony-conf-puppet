@@ -111,12 +111,13 @@ nginx:
             server_name: symfony-conf.local
             server_aliases:
                 - www.symfony-conf.local
-            www_root: /var/www/symfony-conf
+            www_root: /var/www/symfony-conf/web
             listen_port: '80'
             index_files:
                 - index.html
                 - index.htm
                 - index.php
+                - app_dev.php
             client_max_body_size: 128m
             ssl: '0'
             ssl_cert: ''
@@ -134,7 +135,7 @@ nginx:
                     try_files:
                         - $uri
                         - $uri/
-                        - /index.php$is_args$args
+                        - /app_dev.php$is_args$args
                     fastcgi: ''
                     fastcgi_index: ''
                     fastcgi_split_path: ''
@@ -145,9 +146,9 @@ nginx:
                     try_files:
                         - $uri
                         - $uri/
-                        - /index.php$is_args$args
+                        - /app_dev.php$is_args$args
                     fastcgi: '127.0.0.1:9000'
-                    fastcgi_index: index.php
+                    fastcgi_index: app_dev.php
                     fastcgi_split_path: '^(.+\.php)(/.*)$'
                     fast_cgi_params_extra:
                         - 'SCRIPT_FILENAME $request_filename'
